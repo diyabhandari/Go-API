@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/diyabhandari/Go-API/internal/handlers"
 	"github.com/go-chi/chi" //used for web dev, other options available too
+
 	//importing a package from our own module
 
 	log "github.com/sirupsen/logrus" //log errors for debugging
@@ -15,7 +17,7 @@ import (
 func main() {
 	log.SetReportCaller(true)        //pass true to turn this on
 	var r *chi.Mux = chi.NewRouter() //function returns pointer to mux type, stored in r, its a struct we'll use to setup our API
-	handler.Handlers(r)
+	handlers.Handler(r)
 	fmt.Println("Starting GO API service...")
 	err := http.ListenAndServe("localhost: 8000", r) //start the server with http package. it takes base location of the server and a handler
 	if err != nil {
