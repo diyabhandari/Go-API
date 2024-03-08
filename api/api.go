@@ -1,8 +1,8 @@
 package api
-import{
+import(
 	"encoding/json"
 	"net/http"
-}
+)
 type CoinBalanceParams struct{
 	Username string
 }//parameters that our api endpoint will take (postman here)
