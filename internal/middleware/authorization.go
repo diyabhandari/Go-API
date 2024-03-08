@@ -14,7 +14,7 @@ var UnAuthorizedError = errors.New("Invalid username or taken ")
 
 // cuz its middleware, it must take in AND return an HTTP handler interface
 func Authorization(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.RepsonseWriter, r *http.Request) { //handlerFunc is from http package, it takes in a func, and that func also takes in response writer(to construct a response to the caller, set response body header etc) and  a pointer to the request(contains info on incoming req like headers payload)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { //handlerFunc is from http package, it takes in a func, and that func also takes in response writer(to construct a response to the caller, set response body header etc) and  a pointer to the request(contains info on incoming req like headers payload)
 		var username string = r.URL.Query().Get("username") //grab username from request pointer
 		var token = r.Header.Get("Authorization")           //auth token grabbed from header
 		//if either of the above are empty, return an error
@@ -30,7 +30,7 @@ func Authorization(next http.Handler) http.Handler {
 			api.InternalErrorHandler(w)
 		}
 		//now, query the database
-		var loginDetails = *tools.LoginDetails
+		var loginDetails *tools.LoginDetails
 		loginDetails = (*database).GetUserLoginDetails(username)
 		if loginDetails == nil || (token != (*loginDetails).AuthToken) {
 			log.Error(UnAuthorizedError)

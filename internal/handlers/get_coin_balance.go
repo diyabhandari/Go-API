@@ -29,7 +29,7 @@ func GetCoinBalance(w http.ResponseWriter, r *http.Request) {
 		api.InternalErrorHandler(w)
 		return
 	}
-	var tokenDetails = *tools.CoinDetails
+	var tokenDetails *tools.CoinDetails
 	tokenDetails = (*database).GetUserCoins(params.Username)
 	if tokenDetails == nil {
 		log.Error(err)
